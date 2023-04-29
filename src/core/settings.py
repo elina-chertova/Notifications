@@ -13,11 +13,11 @@ host = '127.0.0.1'
 
 
 class PostgresSettings(BaseSettings):
-    user = Field('app', env='PSG_HOST')
-    password = Field('123qwe', env='PSG_HOST')
-    database = Field('movies_db', env='PSG_HOST')
+    user = Field('app', env='PSG_USER')
+    password = Field('123qwe', env='PSG_PWD')
+    database = Field('movies_db', env='PSG_DB')
     host = Field('127.0.0.1', env='PSG_HOST')
-    port = Field('5432', env='PSG_HOST')
+    port = Field('5432', env='PSG_PORT')
 
 
 class RabbitMQSettings(BaseSettings):

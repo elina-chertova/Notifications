@@ -20,6 +20,7 @@ async def send_notification(request: Request,
                             content: str = Query(None, description="Message content. Ex. movie_id"),
                             destination: str = Query('Email', description="Choose type: Email/Websocket"),
                             ntf: Notifier = Depends(get_notifier_service)):
+
     header = request.headers.get('X-Request-Id')
     headers = {'X-Request-Id': header}
     await ntf.send(user_id, subject, title, text, content, destination, headers, type_=type_)

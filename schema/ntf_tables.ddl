@@ -1,13 +1,5 @@
 CREATE SCHEMA IF NOT EXISTS notification;
 
--- CREATE TABLE IF NOT EXISTS notification.users (
---     user_id uuid PRIMARY KEY,
---     first_name TEXT,
---     last_name TEXT,
---     email TEXT NOT NULL,
---     subscribe TEXT NOT NULL
--- );
-
 CREATE TABLE IF NOT EXISTS notification.email_template (
     id UUID PRIMARY KEY,
 
@@ -22,9 +14,6 @@ CREATE TABLE IF NOT EXISTS notification.email_template (
     source TEXT NOT NULL,
     html_code TEXT NOT NULL
 );
-
--- user_id, ntf_id, email, first_name, last_name, destination, type, subject, title, text, priority, source, time, status
--- id,destination,type,subject,title,text,priority,time,source
 
 CREATE TABLE IF NOT EXISTS notification.user_ntf (
     user_id uuid,

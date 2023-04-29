@@ -1,0 +1,78 @@
+version: '3.10'
+
+services:
+  postgres_db_:
+    image: postgres:13
+    restart: always
+    container_name: postgres_db_
+    volumes:
+      - $HOME/postgresql/data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=app
+      - POSTGRES_PASSWORD=123qwe
+      - POSTGRES_DB=movies_db
+    networks:
+      - ntf-network
+
+  ntf:
+    container_name: ntf
+    image: ntf
+    build:
+      context: .
+#      dockerfile: ../Dockerfile
+    command: gunicorn --workers=3 -b 0.0.0.0:8012 -k uvicorn.workers.UvicornWorker src.main:app
+    ports:
+      - "8012:8012"
+    env_file:
+      - ./src/.env
+    depends_on:
+      - postgres_db_
+      - rabbitmq
+    networks:
+      - ntf-network
+
+  nginx:
+    image: nginx:1.19.2
+    volumes:
+      - ./src/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./src/nginx/conf.d:/etc/nginx/conf.d:ro
+      - /tmp/logs/nginx/:/var/log/nginx/
+    ports:
+      - "80:80"
+    depends_on:
+      - ntf
+    networks:
+      - ntf-network
+
+  rabbitmq:
+    image: rabbitmq:3.10.7-management
+    restart: always
+    environment:
+      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
+    volumes:
+      - ./rabbitmq:/var/lib/rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - ntf-network
+
+  admin_panel:
+    container_name: admin_panel
+    build:
+      context: ../admin_panel
+      dockerfile: Dockerfile
+    command: python manage.py runserver
+    depends_on:
+      - postgres_db_
+    env_file:
+      - ../admin_panel/config/.env
+    networks:
+      - admin-network
+
+
+networks:
+  ntf-network:
+    name: movie-network

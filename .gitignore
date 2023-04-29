@@ -9,3 +9,5 @@ admin_panel/config/.env
 /src/worker/source/email/scheduler.log
 /schedule/scheduler.log
 /src/worker/scheduler.log
+/.mypy_cache/
+/src/scheduler.log

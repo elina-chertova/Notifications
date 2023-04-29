@@ -4,9 +4,8 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
 
-from api.v1 import notifications, subscribe
-from db import postgresdb
-from src.core.settings import settings
+from src.api.v1 import notifications, subscribe
+from src.db import postgresdb
 
 PROJECT_NAME = 'Notification Service'
 
