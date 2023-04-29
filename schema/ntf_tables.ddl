@@ -11,7 +11,7 @@ CREATE SCHEMA IF NOT EXISTS notification;
 CREATE TABLE IF NOT EXISTS notification.email_template (
     id UUID PRIMARY KEY,
 
-    message TEXT NOT NULL UNIQUE,
+    message TEXT,
     destination TEXT NOT NULL,
 
     title TEXT,
@@ -63,19 +63,23 @@ VALUES ('5c159abc-f3c5-49ca-ab01-fbc0a60f97cf',
 <body>
     <div style="width: 630px; font: var(--font-500,600 Suisse,Arial,Helvetica,sans-serif); text-align: center;">
 		<div style="text-align: center;">
-			<h1>{{title}}</h1>
+			<h1>Congratulation!</h1>
 		</div>
 		<div style="width: 100%; background: #f0f5f8; border-radius: 10px; margin-top: 10px; padding: 10px;">
 			<h2 style="color: #0474ff;">
 				Hello, {{user}}!
 			</h2>
 			<p style="width: 95%; margin: 10px auto; font-size: 18px;">
-				{{text}} {{content}}
+				You have been registered in Movie Service.
 			</p>
-		</div>
+		<p>Please confirm your email by clicking on the link below:</p>
+    <p><a href="{0}">{1}</a></p>
+    <p>If you did not request this confirmation email, please ignore this message.
+        </p>
+    </div>
 		<div>
 			<p style="text-align: center;">
-				<a href="{{unsubscribe}}" style="color: #0474ff; font-size: 12px;">Click here to unsubscribe</a>
+				<a href="bit.ly/40Ph1PK" style="color: #0474ff; font-size: 12px;">Click here to unsubscribe</a>
 			</p>
 		</div>
 	</div>
@@ -175,6 +179,40 @@ VALUES ('5c159abc-f3c5-49ca-ab01-fbc0a60f97cf',
 			</h2>
 			<p style="width: 95%; margin: 10px auto; font-size: 18px;">
 				{{text}}: {{content}}
+			</p>
+		</div>
+		<div>
+			<p style="text-align: center;">
+				<a href="{{unsubscribe}}" style="color: #0474ff; font-size: 12px;">Click here to unsubscribe</a>
+			</p>
+		</div>
+	</div>
+</body>
+</html>'),
+    ('7c169abc-f3c5-48ca-ab01-fbc0a60f97cf',
+        '',
+        'Email',
+        '',
+        '',
+        '',
+        '',
+        'Service',
+        '<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div style="width: 630px; font: var(--font-500,600 Suisse,Arial,Helvetica,sans-serif); text-align: center;">
+		<div style="text-align: center;">
+			<h1>{{title}}</h1>
+		</div>
+		<div style="width: 100%; background: #f0f5f8; border-radius: 10px; margin-top: 10px; padding: 10px;">
+			<h2 style="color: #0474ff;">
+				Hello, {{user}}!
+			</h2>
+			<p style="width: 95%; margin: 10px auto; font-size: 18px;">
+				{{text}} {{content}}
 			</p>
 		</div>
 		<div>

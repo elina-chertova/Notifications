@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 @router.post('/notification/send',
              summary="")
 async def send_notification(request: Request,
+                            type_: str = Query('', description="Message type. Ex. welcome"),
                             user_id: str = Query(None, description="User ID"),
                             subject: str = Query('Notification', description="Message subject"),
                             title: str = Query(None, description="Message title"),
@@ -20,4 +21,4 @@ async def send_notification(request: Request,
                             destination: str = Query('Email', description="Choose type: Email/Websocket"),
                             ntf: Notifier = Depends(get_notifier_service)):
     headers = request.headers.get('X-Request-Id')
-    await ntf.send(user_id, subject, title, text, content, destination, headers)
+    await ntf.send(user_id, subject, title, text, content, destination, headers, type_=type_)

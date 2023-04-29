@@ -10,6 +10,7 @@ from src.storage.postgres import Postgres
 from src.worker.source.base import Source
 from queue import Queue, Empty
 from threading import Thread
+import hashlib
 
 
 class SMTPConnectionPool:
@@ -50,12 +51,14 @@ class Email(Source):
         self.sender_password = self.config.service_password
         self.smtp_pool = SMTPConnectionPool('smtp.gmail.com', 465, self.sender, self.sender_password)
 
-    def render_template(self, source: str, params: dict, msg_type: str):
-        if msg_type:
-            _, data = self.db.get_data(gen.format(source, msg_type))
+    def render_template(self, source: str, params: dict, msg_type: str, email: str = ''):
+        _, data = self.db.get_data(gen.format(source, msg_type))
+        if msg_type == 'welcome':
+            verification_link = generate_verification_link(email=email)
+            html_code = data[0]['html_code'].format(verification_link, verification_link)
         else:
-            _, data = self.db.get_data(gen_source.format(source))
-        template = Environment(loader=BaseLoader()).from_string(data[0]['html_code'])
+            html_code = data[0]['html_code']
+        template = Environment(loader=BaseLoader()).from_string(html_code)
         result_output = template.render(**params)
         return result_output
 
@@ -78,3 +81,10 @@ class Email(Source):
     def send(self, email: str, subject: str, template: Template):
         t = Thread(target=self.send_email, args=(email, subject, template))
         t.start()
+
+
+def generate_verification_link(email):
+    hash_object = hashlib.sha256(email.encode('utf-8'))
+    hex_dig = hash_object.hexdigest()
+    verification_link = 'http://0.0.0.0:8012/confirm?email={}&hash={}'.format(email, hex_dig)
+    return verification_link
