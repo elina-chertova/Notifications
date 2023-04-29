@@ -29,7 +29,9 @@ class Notifier:
             users = await self.storage.get(sql_query.users_A)
         return users
 
-    async def send(self, user_id: str, subject: str, title: str, text: str, content: str, destination: str):
+    async def send(self, user_id: str, subject: str,
+                   title: str, text: str, content: str,
+                   destination: str, headers: str):
         ntf_id = uuid.uuid4()
         msg_type = 'Service'
         users = await self.get_users(user_id=user_id)
@@ -57,7 +59,8 @@ class Notifier:
                 await self.broker.produce(msg=event.json(),
                                           queue_name=rabbit_settings.queue_email,
                                           exchange_name=rabbit_settings.exchange,
-                                          routing_key=rabbit_settings.routing_key_email.format('service', ''))
+                                          headers=headers,
+                                          routing_key='email.service')
                 logger.info('Added service event to rabbitmq')
 
 

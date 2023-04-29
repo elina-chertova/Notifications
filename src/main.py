@@ -5,9 +5,8 @@ import asyncio
 import asyncpg
 import uvicorn
 # clickhouse, kafka, mongodb
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.responses import ORJSONResponse
-
 # from aiokafka import AIOKafkaProducer
 from api.v1 import subscribe, notifications
 # from asynch import connect
@@ -49,6 +48,7 @@ async def shutdown():
 
 app.include_router(subscribe.router, prefix='/api/v1/subscribes', tags=['Subscribe'])
 app.include_router(notifications.router, prefix='/api/v1/notifications', tags=['Notifications'])
+
 
 if __name__ == '__main__':
     uvicorn.run(
