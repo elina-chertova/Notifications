@@ -39,7 +39,7 @@ class Source(models.TextChoices):
 
 
 class Notice(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    ntf_id = models.UUIDField(default=uuid.uuid4, editable=False)
     destination = models.CharField('Destination', max_length=255, choices=Destination.choices)
     type = models.CharField('Notification type', max_length=255, choices=NotifierType.choices)
 

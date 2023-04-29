@@ -1,3 +1,10 @@
 __pycache__/
 admin_panel/config/.env
 .idea/
+/generator/scheduler.log
+/src/worker/broker/scheduler.log
+/src/.env
+/generator/tasks/scheduler.log
+/fakedata/scheduler.log
+/src/worker/source/email/scheduler.log
+/schedule/scheduler.log

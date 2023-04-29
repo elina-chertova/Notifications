@@ -7,11 +7,11 @@ load_dotenv()
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'django-insecure-a5y7c9rg_ie%$kdht#lp6at#zlls&@nyp_oyrms=6^lfh9--6-'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(' ')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -22,6 +22,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'notify.apps.NotifyConfig'
 ]
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+    "0.0.0.0",
+]
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8000",
+    "http://127.0.0.1:8080",
+]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
