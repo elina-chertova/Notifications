@@ -19,20 +19,20 @@ OpenAPI: `http://0.0.0.0:8012/api/openapi`
 ### Используемые таблицы в Postgres
 1. email_template
 
-<img src="images/email_template.png" alt="Alt text" title="Optional title" style="display: inline-block; margin: 0 auto; max-width: 100px">
+<img src="images/email_template.png" alt="Alt text" title="Optional title" style="display: inline-block; margin: 0 auto; max-width: 50px">
 
 
 2. notice
 
-<img src="images/notice.png" alt="Alt text" title="Optional title" style="display: inline-block; margin: 0 auto; max-width: 100px">
+<img src="images/notice.png" alt="Alt text" title="Optional title" style="display: inline-block; margin: 0 auto; max-width: 50px">
 
 3. user_ntf
 
-<img src="images/user_ntf.png" alt="Alt text" title="Optional title" style="display: inline-block; margin: 0 auto; max-width: 100px">
+<img src="images/user_ntf.png" alt="Alt text" title="Optional title" style="display: inline-block; margin: 0 auto; max-width: 50px">
 
 4. user
 
-<img src="images/user.png" alt="Alt text" title="Optional title" style="display: inline-block; margin: 0 auto; max-width: 100px">
+<img src="images/user.png" alt="Alt text" title="Optional title" style="display: inline-block; margin: 0 auto; max-width: 50px">
 
 
 
