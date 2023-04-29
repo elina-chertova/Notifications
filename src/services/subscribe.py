@@ -14,11 +14,11 @@ class Subscribe:
     def __init__(self, storage: AsyncStorage):
         self.storage = storage
 
-    async def unsubscribe(self, user_id: str):
+    async def unsubscribe(self, user_id: str) -> None:
         await self.storage.update(unsubscribe.format(user_id))
         logger.info('User with id = {0} has been unsubscribed')
 
-    async def subscribe(self, user_id: str):
+    async def subscribe(self, user_id: str) -> None:
         await self.storage.update(subscribe.format(user_id))
         logger.info('User with id = {0} has been subscribed')
 

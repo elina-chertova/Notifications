@@ -21,14 +21,14 @@ class Notifier:
         self.email = Email()
         self.broker = RabbitMQ()
 
-    async def get_users(self, user_id: str | None = None):
+    async def get_users(self, user_id: str | None = None) -> list:
         if user_id is not None:
             users = await self.storage.get(sql_query.users.format(user_id))
         else:
             users = await self.storage.get(sql_query.users_A)
         return users
 
-    async def find_subject(self, type_: str, source: str, subject: str):
+    async def find_subject(self, type_: str, source: str, subject: str) -> str:
         if type_:
             data = await self.storage.get(sql_query.gen.format(source, type_))
             return data[0]['subject']
@@ -36,7 +36,7 @@ class Notifier:
 
     async def send(self, user_id: str, subject: str,
                    title: str = '', text: str = '', content: str = '',
-                   destination: str = '', headers=None, type_: str = ''):
+                   destination: str = '', headers=None, type_: str = '') -> None:
         if headers is None:
             headers = {}
         ntf_id = uuid.uuid4()

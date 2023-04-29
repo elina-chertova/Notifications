@@ -10,7 +10,7 @@ class AdminPanel(FormMSG):
         self.db = Postgres()
         self.prepare = UserNtfPrep()
 
-    async def send_event(self):
+    async def send_event(self) -> list:
         self.prepare.generate_ntf(nft_query=sql_query.get_admpan_ntf,
                                   update_undone=sql_query.update_ntf_admin)
         events = []

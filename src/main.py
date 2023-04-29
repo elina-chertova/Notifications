@@ -6,7 +6,7 @@ from fastapi.responses import ORJSONResponse
 
 from api.v1 import notifications, subscribe
 from db import postgresdb
-
+from src.core.settings import settings
 
 PROJECT_NAME = 'Notification Service'
 

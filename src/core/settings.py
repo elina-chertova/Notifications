@@ -32,8 +32,8 @@ class RabbitMQSettings(BaseSettings):
 
 
 class Settings(BaseSettings):
-    service_email = Field('evchertova@miem.hse.ru', env='RABBIT_PASSWORD')
-    service_password = Field('Boss1849', env='RABBIT_PASSWORD')
+    service_email = Field('*@hse.ru', env='SERVICE_EMAIL')
+    service_password = Field('*', env='SERVICE_PASSWORD')
 
     load_url = {'best_movies': 'films/?sort=imdb_rating%3Adesc&page[size]=5&page[number]=1'}
 
@@ -42,6 +42,9 @@ class Settings(BaseSettings):
 
     auth_service_host = Field('127.0.0.1', env='AUTH_SERVICE_HOST')
     auth_service_port = Field('5000', env="AUTH_SERVICE_PORT")
+
+    nft_host = Field('127.0.0.1', env='NTF_HOST')
+    nft_port = Field('8012', env="NTF_PORT")
 
 
 settings = Settings()

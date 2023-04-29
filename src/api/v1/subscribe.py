@@ -15,8 +15,6 @@ router = APIRouter()
              description="")
 async def subscribe(request: Request,
                     subscriber: Subscribe = Depends(get_subscribe_service),) -> Success:
-    """
-    """
     user, user_code = await check_auth.get_user(request)
 
     if user_code == HTTPStatus.OK:
@@ -31,8 +29,6 @@ async def subscribe(request: Request,
              description="")
 async def unsubscribe(request: Request,
                       subscriber: Subscribe = Depends(get_subscribe_service),) -> Success:
-    """
-    """
     user, user_code = await check_auth.get_user(request)
 
     if user_code == HTTPStatus.OK:

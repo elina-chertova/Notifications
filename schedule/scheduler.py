@@ -22,7 +22,7 @@ class Scheduler(Tasks):
         self.adm = AdminPanel()
 
     async def choose_ntf_type(self,
-                              msg_type: str):
+                              msg_type: str) -> list:
         events_ = None
         if msg_type == 'best_movies':
             self.prepare.run(query=sql_query.gen.format('Auto', msg_type))

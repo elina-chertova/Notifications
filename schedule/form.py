@@ -48,7 +48,7 @@ class FormMSG:
         }
         return params
 
-    def append_event(self, events: list[Event], field, params):
+    def append_event(self, events: list[Event], field, params) -> list[Event]:
         template = self.email.render_template(source=field['source'], params=params, msg_type=field['type'])
         events.append(Event(user_id=field['user_id'],
                             ntf_id=field['ntf_id'],
