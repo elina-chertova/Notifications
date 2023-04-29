@@ -17,6 +17,7 @@ class RabbitMQ(BaseQueue):
         self.host = self.settings.rabbit_host
         self.login = self.settings.rabbit_login
         self.password = self.settings.rabbit_pswd
+        self.email_ = Email()
 
     async def declare_dlq(self, dlq_name, exchange_name):
         connection = await connect("amqp://{0}:{1}@{2}/".format(
@@ -66,9 +67,8 @@ class RabbitMQ(BaseQueue):
     async def choose_ntf_type(self, message: dict):
         if message['destination'] == 'Email':
             try:
-                email_ = Email()
-                email_.send(email=message['email'], subject=message['subject'], template=message['template'])
-                email_.commit(message)
+                self.email_.send(email=message['email'], subject=message['subject'], template=message['template'])
+                self.email_.commit(message)
             except Exception as e:
                 print('Error: ', e)
 
@@ -93,6 +93,7 @@ class RabbitMQ(BaseQueue):
                     try:
                         event = Event(**json.loads(message.body)).dict()
                         await self.choose_ntf_type(event)
+                        print(event)
                         await message.ack()
                     except Exception as e:
                         print('Error processing message:', e)
