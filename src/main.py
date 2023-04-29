@@ -1,27 +1,12 @@
-"""Script to run FastAPI UGC service."""
-# import sentry_sdk
-import asyncio
+"""Script to run FastAPI Notification service."""
 
-import asyncpg
 import uvicorn
-# clickhouse, kafka, mongodb
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
-# from aiokafka import AIOKafkaProducer
-from api.v1 import subscribe, notifications
-# from asynch import connect
-# from core.config import Settings
-# from core.logger import LOGGING
+
+from api.v1 import notifications, subscribe
 from db import postgresdb
-from storage.postgres import PostgresDB
 
-# from motor.motor_asyncio import AsyncIOMotorClient
-# from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
-# from sentry_sdk.integrations.fastapi import FastApiIntegration
-
-# sentry_sdk.init(integrations=[FastApiIntegration()])
-#
-# conf = Settings()
 
 PROJECT_NAME = 'Notification Service'
 
@@ -33,7 +18,6 @@ app = FastAPI(
     description='Notification service.',
     version='1.0.0',
 )
-# app.add_middleware(SentryAsgiMiddleware)
 
 
 @app.on_event('startup')
@@ -55,7 +39,6 @@ if __name__ == '__main__':
         'main:app',
         host='0.0.0.0',
         port=8012,
-        # log_config=LOGGING
     )
 
 

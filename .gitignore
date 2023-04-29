@@ -8,3 +8,4 @@ admin_panel/config/.env
 /fakedata/scheduler.log
 /src/worker/source/email/scheduler.log
 /schedule/scheduler.log
+/src/worker/scheduler.log

@@ -1,16 +1,15 @@
+import hashlib
 import smtplib
-from abc import abstractmethod
 from email.message import EmailMessage
+from queue import Empty, Queue
+from threading import Thread
 
 from jinja2 import BaseLoader, Environment, Template
 
-from src.core.query import gen, gen_source, update_usr_nft
+from src.core.query import gen, update_usr_nft
 from src.core.settings import Settings
 from src.storage.postgres import Postgres
 from src.worker.source.base import Source
-from queue import Queue, Empty
-from threading import Thread
-import hashlib
 
 
 class SMTPConnectionPool:

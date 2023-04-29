@@ -1,19 +1,18 @@
+import datetime
+import uuid
 from functools import lru_cache
 
 import asyncpg
 from fastapi import Depends
 
-from src.core.settings import logger
+import src.core.query as sql_query
+from generator.models.event import Event
+from src.core.settings import logger, rabbit_settings
 from src.db.postgresdb import get_postgres
 from src.storage.base import AsyncStorage
 from src.storage.postgres import PSGR
-import src.core.query as sql_query
-from src.worker.source.email.send_email import Email
-from generator.models.event import Event
-import uuid
-import datetime
 from src.worker.broker.rabbitmq import RabbitMQ
-from src.core.settings import rabbit_settings
+from src.worker.source.email.send_email import Email
 
 
 class Notifier:

@@ -32,35 +32,16 @@ class RabbitMQSettings(BaseSettings):
 
 
 class Settings(BaseSettings):
-    rabbit_host = Field(host, env='RABBIT_HOST')
-    rabbit_port = Field(5672, env='RABBIT_PORT')
-    rabbit_login = Field('guest', env='RABBIT_LOGIN')
-    rabbit_pswd = Field('guest', env='RABBIT_PASSWORD')
-
     service_email = Field('evchertova@miem.hse.ru', env='RABBIT_PASSWORD')
     service_password = Field('Boss1849', env='RABBIT_PASSWORD')
 
-    load_url = {'best_movies': 'films/?sort=imdb_rating%3Adesc&page[size]=5&page[number]=2'}
-    # service_host =
-    # service_port =
+    load_url = {'best_movies': 'films/?sort=imdb_rating%3Adesc&page[size]=5&page[number]=1'}
 
     movie_service_host = Field('127.0.0.1', env='MOVIE_SERVICE_HOST')
     movie_service_port = Field('8005', env="MOVIE_SERVICE_PORT")
-    #
+
     auth_service_host = Field('127.0.0.1', env='AUTH_SERVICE_HOST')
     auth_service_port = Field('5000', env="AUTH_SERVICE_PORT")
-    #
-    # kafka_host: str = Field('localhost', env="KAFKA_HOST")
-    # kafka_port: str = Field('9092', env="KAFKA_PORT")
-    #
-    # clickhouse_host: str = Field('localhost', env="CLICKHOUSE_HOST")
-    # clickhouse_port: str = Field('9000', env="CLICKHOUSE_PORT")
-    #
-    # service_host: str = Field('localhost', env='SERVICE_HOST')
-    #
-    # mongodb_host: str = Field('localhost', env='MONGODB_HOST')
-    # mongodb_port: str = Field('27017', env='MONGODB_PORT')
-    # app_port: int = 8003
 
 
 settings = Settings()

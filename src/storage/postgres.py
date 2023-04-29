@@ -1,10 +1,10 @@
 import asyncpg
 import psycopg2
 import psycopg2.extras
-from pydantic import BaseSettings
 
 from src.core.settings import logger
 from src.storage.base import AsyncStorage
+from src.core.settings import PostgresSettings
 
 
 class PSGR(AsyncStorage):
@@ -22,25 +22,17 @@ class PSGR(AsyncStorage):
         await self.db.execute(query)
 
 
-class PostgresDB(BaseSettings):
-    psql_dbname: str = "movies_db"
-    psql_user: str = "app"
-    psql_password: str = "123qwe"
-    psql_host: str = "127.0.0.1"
-    psql_port: str = "5432"
-
-
 class Postgres:
     def __init__(self):
-        self.database = PostgresDB()
+        self.database = PostgresSettings()
         self.connection = self.postgres_connection()
 
     def postgres_connection(self):
-        settings = {'dbname': self.database.psql_dbname,
-                    'user': self.database.psql_user,
-                    'password': self.database.psql_password,
-                    'host': self.database.psql_host,
-                    'port': int(self.database.psql_port)}
+        settings = {'dbname': self.database.database,
+                    'user': self.database.user,
+                    'password': self.database.password,
+                    'host': self.database.host,
+                    'port': int(self.database.port)}
         return psycopg2.connect(**settings)
 
     def get_data(self, query):

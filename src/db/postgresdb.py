@@ -1,6 +1,7 @@
 from typing import Optional
 
 import asyncpg
+
 from src.core.settings import psgr_settings
 
 postgresdb: Optional[asyncpg.Connection] = None

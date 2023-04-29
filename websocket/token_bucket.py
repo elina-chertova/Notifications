@@ -1,6 +1,7 @@
 import asyncio
-import websockets
 import time
+
+import websockets
 
 MAX_MESSAGES_PER_SECOND = 5
 TOKENS_PER_SECOND = 1

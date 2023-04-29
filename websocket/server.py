@@ -1,6 +1,9 @@
 import asyncio
+
 import websockets
-from websocket.token_bucket import TokenBucket, MAX_MESSAGES_PER_SECOND, TOKENS_PER_SECOND
+
+from websocket.token_bucket import (MAX_MESSAGES_PER_SECOND, TOKENS_PER_SECOND,
+                                    TokenBucket)
 
 peoples = {}
 client_buckets = {}

@@ -7,9 +7,9 @@ from generator.ntf_prep import UserNtfPrep
 from generator.tasks.adm_pan import AdminPanel
 from generator.tasks.tasks import Tasks
 from schedule.triggers import tasks_trigger
-from src.worker.broker.rabbitmq import RabbitMQ
 from src.core.settings import logger, rabbit_settings
 from src.storage.postgres import Postgres
+from src.worker.broker.rabbitmq import RabbitMQ
 
 
 class Scheduler(Tasks):

@@ -6,14 +6,14 @@ from aio_pika import DeliveryMode, Message, connect
 from aio_pika.abc import AbstractIncomingMessage
 
 from generator.models.event import Event
+from src.core.settings import RabbitMQSettings, logger
 from src.worker.broker.base import BaseQueue
-from src.core.settings import Settings, logger
 from src.worker.source.email.send_email import Email
 
 
 class RabbitMQ(BaseQueue):
     def __init__(self):
-        self.settings = Settings()
+        self.settings = RabbitMQSettings()
         self.host = self.settings.rabbit_host
         self.login = self.settings.rabbit_login
         self.password = self.settings.rabbit_pswd
