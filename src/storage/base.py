@@ -8,3 +8,8 @@ class AsyncStorage(ABC):
 
     async def update(self, query: str):
         pass
+
+    async def insert_many(self, query: str, values: list):
+        pass
+
+

@@ -49,7 +49,7 @@ class RabbitMQ(BaseQueue):
                       queue_name: str,
                       exchange_name: str,
                       routing_key: str,
-                      headers: str = None,
+                      headers: dict | None = None,
                       exchange_type: str = 'direct'):
 
         _, _, exchange, queue = await self.declare(queue_name, exchange_name, exchange_type, routing_key)

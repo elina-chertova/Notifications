@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 import aiohttp
 
-from core.settings import Settings
+from src.core.settings import Settings
 
 conf = Settings()
 

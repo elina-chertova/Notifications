@@ -21,7 +21,7 @@ class Notifier:
         self.email = Email()
         self.broker = RabbitMQ()
 
-    async def get_users(self, user_id: str = None):
+    async def get_users(self, user_id: str | None = None):
         if user_id is not None:
             users = await self.storage.get(sql_query.users.format(user_id))
         else:
@@ -36,7 +36,9 @@ class Notifier:
 
     async def send(self, user_id: str, subject: str,
                    title: str = '', text: str = '', content: str = '',
-                   destination: str = '', headers: str = '', type_: str = ''):
+                   destination: str = '', headers=None, type_: str = ''):
+        if headers is None:
+            headers = {}
         ntf_id = uuid.uuid4()
         users = await self.get_users(user_id=user_id)
 
