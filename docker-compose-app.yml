@@ -8,7 +8,7 @@ services:
     volumes:
       - $HOME/postgresql/data:/var/lib/postgresql/data
     ports:
-      - '5432:5432'
+      - ${PSG_PORT}:5432
     environment:
       - POSTGRES_USER=app
       - POSTGRES_PASSWORD=123qwe
@@ -21,10 +21,9 @@ services:
     image: ntf
     build:
       context: .
-#      dockerfile: ../Dockerfile
     command: gunicorn --workers=3 -b 0.0.0.0:8012 -k uvicorn.workers.UvicornWorker src.main:app
     ports:
-      - "8012:8012"
+      - ${NTF_PORT}:8012
     env_file:
       - ./src/.env
     depends_on:
@@ -55,7 +54,7 @@ services:
       - ./rabbitmq:/var/lib/rabbitmq
     ports:
       - "15672:15672"
-      - "5672:5672"
+      - ${RABBIT_PORT}:5672
     networks:
       - ntf-network
 
