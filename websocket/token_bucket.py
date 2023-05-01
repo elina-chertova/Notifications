@@ -26,5 +26,4 @@ class TokenBucket:
         if tokens >= count:
             self.tokens = tokens - count
             return True
-        else:
-            return False
+        return False

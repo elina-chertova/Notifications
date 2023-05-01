@@ -35,7 +35,7 @@ class Postgres:
                     'port': int(self.database.port)}
         return psycopg2.connect(**settings)
 
-    def get_data(self, query):
+    def get_data(self, query: str):
         with self.connection.cursor() as curs:
             curs.execute(query)
             try:
@@ -47,12 +47,12 @@ class Postgres:
                 logger.info('No result')
                 return None
 
-    def insert_update(self, query):
+    def insert_update(self, query: str) -> None:
         with self.connection.cursor() as curs:
             curs.execute(query)
         self.connection.commit()
 
-    def insert_many(self, query, data):
+    def insert_many(self, query: str, data: list) -> None:
         with self.connection.cursor() as curs:
             psycopg2.extras.execute_values(curs, query, data)
         self.connection.commit()

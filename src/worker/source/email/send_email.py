@@ -13,7 +13,12 @@ from src.worker.source.base import Source
 
 
 class SMTPConnectionPool:
-    def __init__(self, server, port, username, password, pool_size=10):
+    def __init__(self,
+                 server: str,
+                 port: int,
+                 username: str,
+                 password: str,
+                 pool_size: int = 10):
         self.server = server
         self.port = port
         self.username = username
@@ -22,7 +27,7 @@ class SMTPConnectionPool:
         for _ in range(pool_size):
             self.pool.put(smtplib.SMTP_SSL(server, port))
 
-    def get_connection(self):
+    def get_connection(self) -> smtplib.SMTP_SSL:
         try:
             conn = self.pool.get(block=False)
         except Empty:
@@ -30,10 +35,10 @@ class SMTPConnectionPool:
         conn.login(self.username, self.password)
         return conn
 
-    def return_connection(self, conn):
+    def return_connection(self, conn: smtplib.SMTP_SSL) -> None:
         self.pool.put(conn)
 
-    def close(self):
+    def close(self) -> None:
         while True:
             try:
                 conn = self.pool.get(block=False)
@@ -82,7 +87,7 @@ class Email(Source):
         t.start()
 
 
-def generate_verification_link(email):
+def generate_verification_link(email: str):
     hash_object = hashlib.sha256(email.encode('utf-8'))
     hex_dig = hash_object.hexdigest()
     verification_link = 'http://0.0.0.0:8012/confirm?email={}&hash={}'.format(email, hex_dig)

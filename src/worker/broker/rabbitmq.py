@@ -19,7 +19,7 @@ class RabbitMQ(BaseQueue):
         self.password = self.settings.rabbit_pswd
         self.email_ = Email()
 
-    async def declare_dlq(self, dlq_name, exchange_name):
+    async def declare_dlq(self, dlq_name: str, exchange_name: str) -> tuple:
         connection = await connect("amqp://{0}:{1}@{2}/".format(
             self.login, self.password, self.host
         ))
@@ -30,7 +30,12 @@ class RabbitMQ(BaseQueue):
         dlq = await channel.declare_queue(dlq_name, durable=True, dead_letter_exchange=exchange)
         return connection, channel, exchange, dlq
 
-    async def declare(self, queue_name, exchange_name, exchange_type, routing_key):
+    async def declare(self,
+                      queue_name: str,
+                      exchange_name: str,
+                      exchange_type: str,
+                      routing_key: str
+                      ) -> tuple:
         connection = await connect(f"amqp://{self.login}:{self.password}@{self.host}/")
         channel = await connection.channel()
         exchange = await channel.declare_exchange(
@@ -45,12 +50,12 @@ class RabbitMQ(BaseQueue):
         return connection, channel, exchange, queue
 
     async def produce(self,
-                      msg,
+                      msg: str,
                       queue_name: str,
                       exchange_name: str,
                       routing_key: str,
                       headers: dict | None = None,
-                      exchange_type: str = 'direct'):
+                      exchange_type: str = 'direct') -> None:
 
         _, _, exchange, queue = await self.declare(queue_name, exchange_name, exchange_type, routing_key)
         message = Message(headers=headers or {},
@@ -64,7 +69,7 @@ class RabbitMQ(BaseQueue):
         )
         time.sleep(0.01)
 
-    async def choose_ntf_type(self, message: dict):
+    async def choose_ntf_type(self, message: dict) -> None:
         if message['destination'] == 'Email':
             try:
                 self.email_.send(email=message['email'], subject=message['subject'], template=message['template'])
